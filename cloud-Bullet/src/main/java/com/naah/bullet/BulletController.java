@@ -11,11 +11,14 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class BulletController {
 
+    @Autowired
+    private SimpMessagingTemplate messagingTemplate;
+
     private static final Logger logger=LoggerFactory.getLogger(BulletController.class);
+
     @MessageMapping("/chat")
     @SendTo("/toAll/bulletScreen")
     public String say(BulletMessageDTO clientMessage) {
-        //方法用于广播测试
         if (clientMessage!=null){
             if (clientMessage.getMessage()!=null){
                 clientMessage.setMessage(clientMessage.getMessage().trim());
@@ -25,7 +28,6 @@ public class BulletController {
         return clientMessage.getMessage();
     }
 
-    @Autowired
-    private SimpMessagingTemplate messagingTemplate;
+
 
 }
